@@ -27,11 +27,11 @@ function getInfo() {
           name = data.display_name != null ? data.display_name : channel,
           desc = state === 'online' ? '' : '',
           bio = data.bio != null ? data.bio : '';
-        html = '<div class="row ' +
+        html = '<div class="row channel ' +
           state + '"><div class="col-xs-2 col-sm-1" id="icon"><img id="logo" src="' +
           logo + '" class="logo"></div><div class="col-xs-10 col-sm-3" id="name"><a href="' +
           url + '" target="_blank">' +
-          name + '</a><p>' + bio + '</p></div><div class="col-xs-10 col-sm-8" id="streaming">' +
+          name + '</a><p class="bio">' + bio + '</p></div><div class="col-xs-10 col-sm-8" id="streaming">' +
           game + '<span class="hidden-xs">' +
           desc + '</span></div></div>';
         state === "online" ? $(".display").prepend(html) : $(".display").append(html);
@@ -45,15 +45,18 @@ function getInfo() {
 
 $(document).ready(function() {
   getInfo();
-  var status = $(this).attr('id');
-  if (status === 'all') {
-    $(".online, .offline").removeClass('hidden');
-  } else if (status === "online") {
-    $(".online").removeClass("hidden");
-    $(".offline").addClass("hidden");
-  } else {
-    $(".offline").removeClass("hidden");
-    $(".online").addClass("hidden");
-  }
+  $('.selector').on('click', function() {
+    var status = $(this).attr('id');
+    if (status === 'all') {
+      $(".online, .offline").removeClass('hidden');
+    } else if (status === "online") {
+      $(".online").removeClass("hidden");
+      $(".offline").addClass("hidden");
+    } else {
+      $(".offline").removeClass("hidden");
+      $(".online").addClass("hidden");
+    }
+  });
+
 
 });

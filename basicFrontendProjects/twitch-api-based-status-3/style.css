@@ -1,4 +1,31 @@
 .logo {
   width: 30px;
   height: 30px;
+  margin: 6px;
+}
+
+.menu {
+  display: flex;
+  justify-content: space-around;
+}
+
+.menu-item {
+  width: 33.33%;
+  background-color: gold;
+  display: flex;
+  justify-content: center;
+}
+
+
+.btn {
+  background-color: gold;
+}
+
+.bio {
+  font-size: .85em;
+}
+
+.channel {
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
