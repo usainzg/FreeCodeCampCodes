@@ -1,62 +1,29 @@
-var entries = [];
-var total = 0;
+var answer = '';
+var cls = false;
+var calc = '';
 
-var temp = '';
-
-$('button').on('click', function(){
-  var val = $(this).text();
-  
-  if (!isNaN(val) || val === '.') {
-    temp += val;
-    $("#answer").val(temp.substring(0,10));
-    
-  }else if(val === 'AC'){
-    entries = [];
-    temp = '';
-    total = 0;
-    $('#answer').val('');
-    
-  }else if(val === 'CE'){
-    temp = '';
-    $('#answer').val('');
-  }else if(val === 'x'){
-    entries.push(temp);
-    entries.push('*');
-    temp = '';
-  }else if(val === '÷'){
-    entries.push(temp);
-    entries.push('/');
-    temp = '';
-  }else if(val === '='){
-    entries.push(temp);
-    
-    var nm = Number(entries[0]);
-    for(var i=1;i<entries.length;i++) {
-      var nextNumber = Number(entries[i+1]);
-      var symbol = entries[i];
-      
-      if(symbol === '+') {
-        nm += nextNumber;
-      }else if(symbol === '-') {
-        nm -= nextNumber;
-      }else if(symbol === '*') {
-        nm *= nextNumber;
-      }else if(symbol === '/') {
-        nm /= nextNumber;
+$(document).ready(function(){
+  $('button').click(function(){
+    var val = $(this).attr('value');
+    if(parseInt(val, 10) == val || val === "." || val === "/" || val === "*" || val === "+" || val === "-" || val === "%"){
+      if(cls === false){
+        calc += val;
+        $('#answer').val(calc);
+      }else{
+        calc = val;
+        $('#answer').val(calc);
+        clear = false;
       }
-      i++;
+    }else if(val === "AC"){
+      calc = '';
+      $('#answer').val("");
+    }else if(val === "CE"){
+      calc = calc.slice(0, -1);
+      $('#answer').val(calc);
+    }else if(val === "="){
+      answer = eval(calc);
+      $('#answer').val(answer);
+      clear = true;
     }
-    
-    if(nm < 0) {
-      nm = '-' + Math.abs(nm);
-    }
-    
-    $('#answer').val(nm);
-    entries = [];
-    temp = '';
-  }else {
-    entries.push(temp);
-    entries.push(val);
-    temp = '';
-  }
+  });
 });
